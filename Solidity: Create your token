@@ -1,0 +1,50 @@
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.18;
+
+
+// This contract represents a simple token
+contract MyToken {
+
+
+    // Public variables to store the token name and symbol
+    string public TN = "Cadbury";      // Token Name
+    string public TA = "CB";           // Token Symbol
+
+    // Public variable to keep track of the total tokens sold/minted
+    uint public sale= 0;
+
+    // Mapping to track the remaining balance of tokens for each address
+    mapping(address => uint) public remaining;
+
+
+
+
+    // Function to mint new tokens
+    // - `_add`: Address to which the tokens will be minted
+    // - `_num`: Number of tokens to mint
+    function mint (address _add, uint _num) public
+     {
+        sale += _num;               // Increase the total sales by the number of tokens minted
+        remaining[_add] += _num;    // Increase the balance of the address by the number of tokens minted
+    } 
+
+    // Function to consume or burn tokens from an address
+    // - `_add`: Address from which the tokens will be burned
+    // - `_num`: Number of tokens to burn
+    function burning (address _add, uint _num) public
+     {
+
+        // Check if the address has enough tokens to burn
+        if (remaining[_add] >= _num)
+            {
+                sale -= _num;              // Decrease the total sales by the number of tokens burned
+                remaining[_add] -= _num;   // Decrease the balance of the address by the number of tokens burned
+            }
+        
+    } 
+
+
+
+
+    
+}
